@@ -17,7 +17,7 @@ python gen_data_model.py --dataset census --residual --layers=2 --fc-hiddens=128
 python gen_data_model.py --dataset dmv --residual --layers=2 --fc-hiddens=128 --direct-io --column-masking --glob dmv_pretrained.pt --save-name dmv
 python gen_data_model.py --dataset dmv --residual --layers=2 --fc-hiddens=128 --direct-io --column-masking --glob dmv_7_pretrained.pt --save-name dmv_7
 ```
-The generated relation is saved at `./generated_data_tables`.
+The generated relations are saved at `./generated_data_tables`.
 
 **Reproduce result of Table 1** : Run the 20000 training queries on the generated database. The first 20000 queries in the generated workload are training queries.
 ```
