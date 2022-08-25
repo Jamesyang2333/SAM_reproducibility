@@ -6,6 +6,7 @@
 bash scripts/download_dmv.sh
 ```
 **Pretrained Models** We have provided two pretrained models for each dataset.
+
 [`models/census_pretrained.pt`](models/census_pretrained.pt): Trained from 20000 queries in the generated workload ([`queries/census_train.txt`](queries/census_train.txt)).
 
 [`models/dmv_pretrained.pt`](models/dmv_pretrained.pt): Trained from 20000 queries in the generated workload ([`queries/dmv_train.txt`](queries/dmv_21000.txt)).
