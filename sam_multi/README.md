@@ -11,7 +11,9 @@ bash scripts/download_imdb.sh
 
 [`./models/uaeq-mscn-400.pt`](./models/uaeq-mscn.pt): Trained from the first 400 queries in the MSCN workload ([`./queries/mscn_400.csv`](./queries/mscn_400.csv)).
 
-**Reproduce result of Table 3** To generate database from trained models using SAM, use the following commands.
+### Reproduce result of Table 3 
+
+To generate database from trained models using SAM, use the following commands.
 ```
 python run_dbgen.py --run data-generation-job-light-mscn-worklod
 ```
@@ -43,11 +45,12 @@ Run the 400 training queries ([`./queries/mscn_400.sql`](./queries/mscn_400.sql)
 python query_execute.py --queries ./queries/mscn_400.sql --cards ./queries/mscn_400_card.csv
 ```
 
-### Configuration for database generation
+ 
+**Configuration for database generation**
 
 All configuration of SAM, including model training and database generation, can be set in [`experiments.py`](./experiments.py). To configure the generation process, locate the configure for [`'data-generation-job-light-MSCN-worklod'`], where you can set the autoregressive model to load, the number of iteration to run, as well as the schema of the generated database.
 
-**Reproduce result of Table 4** 
+### Reproduce result of Table 4
 Set the following in [`experiments.py`](./experiments.py) and repeat the steps.
 ```
 'checkpoint_to_load': 'models/uaeq-mscn.pt'
