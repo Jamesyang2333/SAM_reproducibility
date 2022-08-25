@@ -11,7 +11,7 @@ bash scripts/download_imdb.sh
 
 [`./models/uaeq-mscn-400.pt`](./models/uaeq-mscn.pt): Trained from the first 400 queries in the MSCN workload ([`./queries/mscn_400.csv`](./queries/mscn_400.csv)).
 
-**Database Generation** To generate database from trained models using SAM, use the following commands.
+**Reproduce result of Table 3** To generate database from trained models using SAM, use the following commands.
 ```
 python run_dbgen.py --run data-generation-job-light-mscn-worklod
 ```
@@ -47,15 +47,20 @@ python query_execute.py --queries ./queries/mscn_400.sql --cards ./queries/mscn_
 
 All configuration of SAM, including model training and database generation, can be set in [`experiments.py`](./experiments.py). To configure the generation process, locate the configure for [`'data-generation-job-light-MSCN-worklod'`], where you can set the autoregressive model to load, the number of iteration to run, as well as the schema of the generated database.
 
-To reproduce our results and generate database using the pretrained model from the full MSCN workload, set the following in [`experiments.py`](./experiments.py)
+**Reproduce result of Table 4** 
+Set the following in [`experiments.py`](./experiments.py) and repeat the steps.
 ```
 'checkpoint_to_load': 'models/uaeq-mscn.pt'
 'total_iterations': 1000
 ```
 
-*To speedup the generation process, use a larger `'save_frequency'`.
+The sample test set of 1000 queries can be found at [`./queries/mscn_sample_1000.sql`](./queries/mscn_sample_1000.sql) and [`./queries/mscn_sample_100_card.csv`](./queries/mscn_sample_1000_card.csv). Run the 1000 queries on the generated database and get the result Q-error:
+```
+python query_execute.py --queries ./queries/mscn_sample_1000.sql --cards ./queries/mscn_sample_1000_card.csv
+```
 
-The sample test set of 1000 queries can be found at [`./queries/mscn_sample_1000.sql`](./queries/mscn_sample_1000.sql) and [`./queries/mscn_sample_100_card.csv`](./queries/mscn_sample_1000_card.csv)
+
+*To speedup the generation process, use a larger `'save_frequency'`.
 
 ### SAM model training
 SAM uses [UAE-Q](https://github.com/pagegitss/UAE) to train a deep autoregressive model from query workloads, 
