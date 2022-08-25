@@ -11,9 +11,9 @@ Your can learn more about SAM in our SIGMOD 2022 paper, [SAM: Database Generatio
 ## Getting Started
 This project contains two main directories:
 
-[`./sam_single`](./sam_single): Reproducibility result on single-relation database
+[`sam_single`](sam_single): Reproducibility result on single-relation database
 
-[`./sam_multi`](./sam_multi): Reproducibility result on multi-relation database
+[`sam_multi`](sam_multi): Reproducibility result on multi-relation database
 
 ## Citation
 ```bibtex

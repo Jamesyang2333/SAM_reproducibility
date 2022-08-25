@@ -19,22 +19,22 @@ python gen_data_model.py --dataset dmv --residual --layers=2 --fc-hiddens=128 --
 ```
 The generated relations are saved at `./generated_data_tables`.
 
-**Reproduce result of Table 1** : Run the 20000 training queries on the generated database. The first 20000 queries in the generated workload are training queries.
+**Reproduce result of Table 1** : Run the full training queries on the generated database.
 ```
-python query_execute_single.py --dataset census --trainSet
-python query_execute_single.py --dataset dmv --trainSet
+python query_execute_single.py --dataset census --data-file ./generated_data_tables/census.csv --query-file ./queries/census_train.txt
+python query_execute_single.py --dataset dmv --data-file ./generated_data_tables/dmv.csv --query-file ./queries/dmv_train.txt
 ```
 
-**Reproduce result of Table 2** Run the 20000 training queries on the generated database. The first 20000 queries in the generated workload are training queries.
+**Reproduce result of Table 2** Run the very few training queries on the generated database.
 ```
-python query_execute_single.py --dataset census --trainSet
-python query_execute_single.py --dataset dmv --trainSet
+python query_execute_single.py --dataset census --data-file ./generated_data_tables/census_12.csv --query-file ./queries/census_12.txt
+python query_execute_single.py --dataset dmv --data-file ./generated_data_tables/dmv_7.csv --query-file ./queries/dmv_7.txt
 ```
 
 **Reproduce result of Table 5**: Run the 1000 training queries on the generated database. The last 1000 queries in the generated workload are training queries.
 ```
-python query_execute_single.py --dataset census --testSet
-python query_execute_single.py --dataset dmv --testSet
+python query_execute_single.py --dataset census --data-file ./generated_data_tables/census.csv --query-file ./queries/census_test.txt
+python query_execute_single.py --dataset dmv --data-file ./generated_data_tables/dmv.csv --query-file ./queries/dmv_test.txt
 ```
 
 ### SAM model training
