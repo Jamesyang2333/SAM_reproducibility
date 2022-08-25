@@ -5,10 +5,14 @@
 ```
 bash scripts/download_dmv.sh
 ```
-**Pretrained Models** We have provided a pretrained model for each dataset.
-[`./models/census_pretrained.pt`](./models/census_pretrained.pt): Trained from 20000 queries in the generated workload ([`./queries/census_21000.txt`](./queries/census_21000.txt)).
+**Pretrained Models** We have provided two pretrained models for each dataset.
+[`models/census_pretrained.pt`](models/census_pretrained.pt): Trained from 20000 queries in the generated workload ([`queries/census_train.txt`](queries/census_train.txt)).
 
-[`./models/dmv_pretrained.pt`](./models/dmv_pretrained.pt): Trained from 20000 queries in the generated workload ([`./queries/dmv_21000.txt`](./queries/dmv_21000.txt)).
+[`models/dmv_pretrained.pt`](models/dmv_pretrained.pt): Trained from 20000 queries in the generated workload ([`queries/dmv_train.txt`](queries/dmv_21000.txt)).
+
+[`models/census_12_pretrained.pt`](models/census_12_pretrained.pt): Trained from 12 queries in the generated workload ([`queries/census_12.txt`](queries/census_12.txt)).
+
+[`models/dmv_7_pretrained.pt`](models/dmv_7_pretrained.pt): Trained from 7 queries in the generated workload ([`queries/dmv_7.txt`](queries/dmv_7.txt)).
 
 **Database Generation** To generate database from trained models using SAM, use the following commands. For each dataset, we generate two databases, one from the model trained on the full dataset and another from the model trained on very few input queries.
 ```
