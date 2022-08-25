@@ -10,7 +10,7 @@ bash scripts/download_dmv.sh
 
 [`./models/dmv_pretrained.pt`](./models/dmv_pretrained.pt): Trained from 20000 queries in the generated workload ([`./queries/dmv_21000.txt`](./queries/dmv_21000.txt)).
 
-**Database Generation** To generate database from trained models using SAM, use the following commands. For each dataset, we generate two databases, one from the model trained on the full dataset and another from the model trained on very few input queries (to compare with baseline).
+**Database Generation** To generate database from trained models using SAM, use the following commands. For each dataset, we generate two databases, one from the model trained on the full dataset and another from the model trained on very few input queries.
 ```
 python gen_data_model.py --dataset census --residual --layers=2 --fc-hiddens=128 --direct-io --column-masking --glob census_pretrained.pt --save-name census
 python gen_data_model.py --dataset census --residual --layers=2 --fc-hiddens=128 --direct-io --column-masking --glob census_12_pretrained.pt --save-name census_12
