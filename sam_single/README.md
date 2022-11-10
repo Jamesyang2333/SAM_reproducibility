@@ -7,9 +7,9 @@ bash scripts/download_dmv.sh
 ```
 **Pretrained Models** We have provided two pretrained models for each dataset.
 
-[`models/census_pretrained.pt`](models/census_pretrained.pt): Trained from 20000 queries in the generated workload ([`queries/census_train.txt`](queries/census_train.txt)).
+[`models/census_pretrained.pt`](models/census_pretrained.pt): Trained from a generated workload of 20000 queries ([`queries/census_train.txt`](queries/census_train.txt)).
 
-[`models/dmv_pretrained.pt`](models/dmv_pretrained.pt): Trained from 20000 queries in the generated workload ([`queries/dmv_train.txt`](queries/dmv_21000.txt)).
+[`models/dmv_pretrained.pt`](models/dmv_pretrained.pt): Trained from a generated workload of 20000 queries ([`queries/dmv_train.txt`](queries/dmv_21000.txt)).
 
 [`models/census_12_pretrained.pt`](models/census_12_pretrained.pt): Trained from 12 queries in the generated workload ([`queries/census_12.txt`](queries/census_12.txt)).
 
@@ -36,7 +36,7 @@ python query_execute_single.py --dataset census --data-file ./generated_data_tab
 python query_execute_single.py --dataset dmv --data-file ./generated_data_tables/dmv_7.csv --query-file ./queries/dmv_7.txt
 ```
 
-**Reproduce result of Table 5**: Run the 1000 training queries on the generated database. The last 1000 queries in the generated workload are training queries.
+**Reproduce result of Table 5**: Run the 1000 test queries on the generated database.
 ```
 python query_execute_single.py --dataset census --data-file ./generated_data_tables/census.csv --query-file ./queries/census_test.txt
 python query_execute_single.py --dataset dmv --data-file ./generated_data_tables/dmv.csv --query-file ./queries/dmv_test.txt
