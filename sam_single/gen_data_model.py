@@ -357,7 +357,7 @@ def Main():
         assert order is None or len(order) == model.nin, order
         ReportModel(model)
         print('Loading ckpt:', s)
-        model.load_state_dict(torch.load(s, map_location='cuda:6'))
+        model.load_state_dict(torch.load(s))
         model.eval()
 
 

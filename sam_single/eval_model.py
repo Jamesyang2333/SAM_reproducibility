@@ -430,8 +430,7 @@ def SaveEstimators(path, estimators, return_df=False):
 
 def Main():
 
-    # all_ckpts = glob.glob('./models/{}'.format(args.glob))
-    all_ckpts = glob.glob(args.glob)
+    all_ckpts = glob.glob('./models/{}'.format(args.glob))
     
 
     if args.blacklist:

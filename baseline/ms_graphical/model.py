@@ -2,6 +2,7 @@ import math
 import bisect
 import itertools
 import time
+import os
 
 import numpy as np
 import pandas as pd
@@ -171,12 +172,15 @@ def get_val_from_idx(interval_list, clique, idx):
     return result_idx, result
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--train_num", help="number of queries used for generation", type=int, default=50)
+parser.add_argument('--dataset', type=str, default='census', help='Dataset.')
+parser.add_argument("--train_num", help="number of queries used for generation", type=int, default=400)
 
 args = parser.parse_args()
 
-
-train_data_raw = load_dataset("census", "")
+train_file_str = '../../sam_single/queries/{}_train.txt'.format(args.dataset)
+train_data_raw = load_dataset(args.dataset, train_file_str)
+test_file_str = '../../sam_single/queries/{}_test.txt'.format(args.dataset)
+test_data_raw = load_dataset(args.dataset, test_file_str)
 # idx_list_filter = []
 # # get rid of queries with filter on both column 0 and 14
 # for i in range(len(train_data_raw["card"])):
@@ -194,8 +198,10 @@ train_num = args.train_num
 print(train_num)
 
 G = nx.Graph()
-table = datasets.LoadCensus()
-# table = datasets.LoadDmv()
+if args.dataset == 'census':
+    table = datasets.LoadCensus()
+elif args.dataset == 'dmv':
+    table = datasets.LoadDmv()
 interval_dict = {}
 interval_list = {}
 interval_dict_idx = {}
@@ -545,18 +551,21 @@ print("50 percentile q error: {}".format(np.percentile(q_error_list, 50)))
 print("Average q error: {}".format(np.mean(q_error_list)))
 
 
-start_idx = 20000
 test_num = 1000
 
 card_pred = []
-for i in range(start_idx, start_idx+test_num):
-    cols = [sample_table.columns[sample_table.ColumnIndex(col)] for col in train_data_raw['column'][i]]
-    ops = train_data_raw['operator'][i]
-    vals = train_data_raw['val'][i]
+for i in range(test_num):
+    cols = [sample_table.columns[sample_table.ColumnIndex(col)] for col in test_data_raw['column'][i]]
+    ops = test_data_raw['operator'][i]
+    vals = test_data_raw['val'][i]
     est = Query(sample_table, cols, ops, vals)
+    if est == 0:
+        est = 1
     card_pred.append(est / sample_table.cardinality)
 
-q_error_list = get_qerror(np.array(card_pred), np.array(train_data_raw['card'][start_idx:start_idx+test_num]))
+print(card_pred)
+print(np.array(test_data_raw['card']))
+q_error_list = get_qerror(np.array(card_pred), np.array(test_data_raw['card']))
 print("q error of test queries:")
 print("Max q error: {}".format(np.max(q_error_list)))
 print("99 percentile q error: {}".format(np.percentile(q_error_list, 99)))
@@ -565,5 +574,7 @@ print("90 percentile q error: {}".format(np.percentile(q_error_list, 90)))
 print("50 percentile q error: {}".format(np.percentile(q_error_list, 50)))
 print("Average q error: {}".format(np.mean(q_error_list)))
 
-sample_frame.to_csv('./single_relation_results/census_num_{}.csv'.format(train_num), index=False)
+if not os.path.exists('./results'):
+    os.makedirs('./results')
+sample_frame.to_csv('./results/census_num_{}.csv'.format(train_num), index=False)
 

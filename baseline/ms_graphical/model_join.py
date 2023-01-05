@@ -7,6 +7,7 @@ from scipy.optimize import minimize
 import numpy as np
 import networkx as nx
 import pandas as pd
+import argparse
 
 
 from data_loader import load_dataset_join
@@ -165,6 +166,14 @@ def get_val_from_idx(interval_list, clique, idx):
 
     return result_idx, result
 
+parser = argparse.ArgumentParser()
+parser.add_argument("--train_num", help="number of queries used for generation", type=int, default=50)
+parser.add_argument('--train_queries',
+                    default="../../sam_multi/queries/mscn_400.csv",
+                    type=str,
+                    required=True,
+                    help='Train query file')
+args = parser.parse_args()
 
 join_tables = [
     'cast_info', 'movie_companies', 'movie_info', 'movie_keyword', 'title',
@@ -190,7 +199,7 @@ if dataset == 'imdb':
 
 
 train_data_raw = load_dataset_join(
-    "../../../queries/mscn_queries_neurocard_format.csv", join_tables, loaded_tables)
+    args.train_queries, join_tables, loaded_tables)
 
 
 # train_data_raw = load_dataset_join(
@@ -209,7 +218,7 @@ for name in join_name_set:
     query_by_join[name] = []
 
 # get rid of queries with filter on both column 0 and 14
-for i in range(len(train_data_raw)):
+for i in range(args.train_num):
     if len(train_data_raw[i]["tables"]) == 1 and train_data_raw[i]["tables"][0] == "title":
         idx_list_filter.append(i)
 
@@ -219,12 +228,7 @@ for i in range(len(train_data_raw)):
 train_data_raw = [train_data_raw[i] for i in idx_list_filter]
 print("Total number of queries after filter: {}".format(len(train_data_raw)))
 
-
-# train_num = len(train_data_raw["card"])
-# train_num = len(train_data_raw)
-train_num = 60
-
-for i in range(train_num):
+for i in range(len(train_data_raw)):
     if len(train_data_raw[i]["tables"]) == 1:
         idx_list_filter.append(i)
         query_by_join['title'].append(train_data_raw[i])
@@ -259,7 +263,7 @@ for name in join_name_set:
                 interval_dict_set[name][col_name] = set()
                 interval_dict_idx_set[name][col_name] = set()
 
-for i in range(train_num):
+for i in range(len(train_data_raw)):
 
     tables = train_data_raw[i]["tables"]
     join_name = ','.join(train_data_raw[i]["tables"])
