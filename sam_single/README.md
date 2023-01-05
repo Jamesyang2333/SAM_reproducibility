@@ -42,6 +42,12 @@ python query_execute_single.py --dataset census --data-file ./generated_data_tab
 python query_execute_single.py --dataset dmv --data-file ./generated_data_tables/dmv.csv --query-file ./queries/dmv_test.txt
 ```
 
+**Reproduce result of Table 6**: Evaluate the cross entropy on the trained model.
+```
+python eval_model.py --dataset census --residual --layers=2 --fc-hiddens=128 --direct-io --column-masking --glob census_pretrained.pt
+python eval_model.py --dataset dmv --residual --layers=2 --fc-hiddens=128 --direct-io --column-masking --glob dmv_pretrained.pt
+```
+
 ### SAM model training
 SAM uses [UAE-Q](https://github.com/pagegitss/UAE) to train a deep autoregressive model from query workloads, 
 
