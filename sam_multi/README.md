@@ -19,25 +19,25 @@ python run_dbgen.py --run data-generation-job-light-mscn-worklod
 ```
 By default, this generates the database using the model [`./models/uaeq-mscn-400.pt`](./models/uaeq-mscn.pt). The generation process runs for 100 iterations. The generated data csv files are saved at `./generated_database/imdb`.
 
-**Test the generated database** To test the fidelity of generated database, import the files to a PostgreSQL database:
+**Test the generated database** To test the fidelity of generated database, import the files to a PostgreSQL database. Note that [path_to_repo] should be replaced with the actual path to this repository on the system.
 ```sql
 create table title (id int PRIMARY KEY, production_year int, kind_id int);
-copy title from '/SAM/sam_multi/generated_database/imdb/title_100.csv' delimiter ',' header csv;
+copy title from '[path_to_repo]/sam_multi/generated_database/imdb/title_100.csv' delimiter ',' header csv;
 
 create table movie_keyword (movie_id int, keyword_id int);
-copy movie_keyword from '/SAM/sam_multi/generated_database/imdb/movie_keyword_100.csv' delimiter ',' header csv;
+copy movie_keyword from '[path_to_repo]/sam_multi/generated_database/imdb/movie_keyword_100.csv' delimiter ',' header csv;
 
 create table movie_info_idx (movie_id int, info_type_id int);
-copy movie_info_idx from 'SAM/sam_multi/generated_database/imdb/movie_info_idx_100.csv' delimiter ',' header csv;
+copy movie_info_idx from '[path_to_repo]/sam_multi/generated_database/imdb/movie_info_idx_100.csv' delimiter ',' header csv;
 
 create table movie_info (movie_id int, info_type_id int);
-copy movie_info from '/SAM/sam_multi/generated_database/imdb/movie_info_100.csv' delimiter ',' header csv;
+copy movie_info from '[path_to_repo]/sam_multi/generated_database/imdb/movie_info_100.csv' delimiter ',' header csv;
 
 create table movie_companies (movie_id int, company_type_id int, company_id int);
-copy movie_companies from '/SAM/sam_multi/generated_database/imdb/movie_companies_100.csv' delimiter ',' header csv;
+copy movie_companies from '[path_to_repo]/sam_multi/generated_database/imdb/movie_companies_100.csv' delimiter ',' header csv;
 
 create table cast_info (movie_id int, role_id int, person_id int);
-copy cast_info from '/SAM/sam_multi/generated_database/imdb/cast_info_100.csv' delimiter ',' header csv;
+copy cast_info from '[path_to_repo]/sam_multi/generated_database/imdb/cast_info_100.csv' delimiter ',' header csv;
 ```
 
 Run the 400 training queries ([`./queries/mscn_400.sql`](./queries/mscn_400.sql)) on the generated database and get the result Q-error:
