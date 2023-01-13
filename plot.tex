@@ -1,0 +1,269 @@
+%Figure 5
+\begin{filecontents*}{census_sam_train_time.csv}
+    5, 0.001555556
+    10, 0.001527778
+    30, 0.001833333
+    100, 0.003194444
+    300, 0.008333333
+    1000, 0.019722222
+    3000, 0.053361111
+    10000, 0.194888889
+    30000, 0.311444444
+    100000, 0.945277778
+\end{filecontents*}
+\begin{filecontents*}{census_pgm_train_time.csv}
+    5, 0.011012387
+    10, 4.50
+    12, 6.30
+    13, 14.51
+\end{filecontents*}
+\begin{filecontents*}{imdb_sam_train_time.csv}
+    150, 0.26
+    400, 0.42
+    1000, 0.459
+    3000, 1.14
+    10000, 3.83
+    30000, 11.77
+    100000, 35.42
+\end{filecontents*}
+\begin{filecontents*}{imdb_pgm_train_time.csv}
+    150, 0.147526462
+    200, 0.221034751
+    300, 6.736001939
+    373, 13.54637885
+    400, 19.49776269
+    417, 56.10453373
+    444, 88.66632618
+\end{filecontents*}
+\begin{figure}[ht]
+\begin{minipage}[t]{0.23\textwidth}
+\centering
+\begin{tikzpicture}
+    \begin{axis}[
+    xlabel= \# of queries \\ \textbf{Census},
+    ylabel=Time (h),
+      every axis y label/.style={at={(current axis.north west)},above=1mm},
+     xlabel style={align=center},
+    xmode=log,
+    ymode=log,
+    width=4.7cm,
+    height=3.5cm,
+    xmin = 0,
+    xmax = 100000,
+    grid = both,
+    legend style={at={(0.24,0.5)},anchor=south west}],
+   \addplot[line width=0.5pt,solid,color=black,mark=*, mark size=1.5pt] table[col sep=comma]{census_sam_train_time.csv};
+   \addlegendentry{SAM};
+    \addplot[line width=0.5pt,solid,color=black, ,mark=triangle*, mark size=1.5pt, ] table[col sep=comma]{census_pgm_train_time.csv};
+   \addlegendentry{PGM};
+    \end{axis}
+\end{tikzpicture}
+\end{minipage}
+\begin{minipage}[t]{0.23\textwidth}
+\centering
+\begin{tikzpicture}
+    \begin{axis}[
+    xlabel= \# of queries \\ \textbf{IMDB},
+    ylabel=Time (h),
+      every axis y label/.style={at={(current axis.north west)},above=1mm},
+     xlabel style={align=center},
+    xmode=log,
+    ymode=log, 
+    width=4.7cm,
+    height=3.5cm,
+    xmin = 0,
+    xmax = 100000,
+    legend style={at={(0.28,0.5)},anchor=south west},
+    grid = both],
+   \addplot[line width=0.5pt,solid,color=black,mark=*, mark size=1.5pt] table[col sep=comma]{imdb_sam_train_time.csv};
+   \addlegendentry{SAM};
+   \addplot[line width=0.5pt,solid,color=black, ,mark=triangle*, mark size=1.5pt] table[col sep=comma]{imdb_pgm_train_time.csv};
+   \addlegendentry{PGM};
+    \end{axis}
+\end{tikzpicture}
+\end{minipage}
+ \vspace{-0.7em}
+\caption{Processing time.}
+\label{fig:ing_time}
+\end{figure}
+
+%Figure 6
+\begin{filecontents*}{sample_time.csv}
+200,    663.510485
+400,	1298.02505
+600,	1949.52185
+800,	2624.94602
+1000,	3320.04895
+1200,	4293.58866
+1400,	5532.37095
+1600,	6907.46869
+1800,	8217.61364
+2000,	9193.82865
+\end{filecontents*}
+\begin{filecontents*}{sample_qerror.csv}
+200, 1.93833173
+400, 1.81341899
+600, 1.68396896
+800, 1.6548008
+1000, 1.65800311
+1200, 1.60602017
+1400, 1.58239152
+1600, 1.59311891
+1800, 1.5887745
+2000, 1.61229206
+\end{filecontents*}
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}
+    \begin{axis}[
+    xlabel= Iterations,
+    ylabel= Time (s),
+    axis y line*=left,
+    xlabel style={align=center},
+     ylabel near ticks,
+    width = 8cm,
+    height = 3.5cm,
+    xmin = 200,
+    xmax = 2000,
+    grid = both]
+  \addplot[line width=0.5pt,solid,color=black,mark=*, mark size=1.5pt] table[col sep=comma]{sample_time.csv};\label{gen_time}
+    \end{axis}
+     \begin{axis}[
+    ylabel= Median Q-Error,
+    axis y line*=right,
+    hide x axis,
+    width = 8cm,
+    height = 3.5cm,
+    ylabel near ticks,
+    xmin = 200,
+    xmax = 2000,
+    ymin = 1.5,
+    legend style={at={(0.3,0.5)},anchor=south west},
+    ymax = 2]
+  \addplot[line width=0.5pt,solid,color=black,mark=triangle*, mark size=1.5pt] table[col sep=comma]{sample_qerror.csv};\label{gen_qerror}
+  \addlegendimage{/pgfplots/refstyle=gen_time}\addlegendentry{Q-Error}
+\addlegendimage{/pgfplots/refstyle=gen_qerror}\addlegendentry{Time}
+    \end{axis}
+\end{tikzpicture}
+ \vspace{-2.3em}
+\caption{Generation time of \sam~ and the corresponding Q-Error on IMDB with varying sample sizes.}
+\label{fig:sample_time}
+\end{figure}
+
+%Figure 7
+\begin{filecontents*}{sam_ce_query.csv}
+    20000, 28.68
+    40000, 28.32
+    60000, 27.91
+    80000, 27.88
+    100000, 27.74
+\end{filecontents*}
+\begin{filecontents*}{sam_mean_query.csv}
+    20000, 1.968539291
+    40000, 1.887097971
+    60000, 1.872270073
+    80000, 1.829649921
+    100000, 1.820883697
+\end{filecontents*}
+\begin{figure}[ht]
+\begin{minipage}[t]{0.24\textwidth}
+\centering
+\begin{tikzpicture}
+    \begin{axis}[
+    xlabel= Workload Size,
+    ylabel style={align=center},
+    ylabel = Cross Entropy\\(Bits),
+    %  ylabel near ticks,
+    xlabel style={align=center},
+    width=4.2cm,
+    height=3cm,
+    xmin = 20000,
+    xmax = 100000,
+    grid = both],
+   \addplot[line width=0.5pt,solid,color=black,mark=*, mark size=1.5pt] table[col sep=comma]{sam_ce_query.csv};
+    \end{axis}
+\end{tikzpicture}
+\end{minipage}
+\begin{minipage}[t]{0.23\textwidth}
+\centering
+\begin{tikzpicture}
+    \begin{axis}[
+    xlabel= Workload Size,
+    ylabel= Mean Q-Error,
+    ylabel near ticks,,
+     xlabel style={align=center},
+    width=4.2cm,
+    height=3cm,
+    xmin = 20000,
+    xmax = 100000,
+    grid = both],
+   \addplot[line width=0.5pt,solid,color=black,mark=*, mark size=1.5pt] table[col sep=comma]{sam_mean_query.csv};
+    \end{axis}
+\end{tikzpicture}
+\vspace{-0.7em}
+\end{minipage}
+\vspace{-1.5em}
+\caption{Performance of database recovery with varying workload size on Census.}
+\label{fig:performce_query}
+\end{figure}
+
+%Figure 8
+\begin{filecontents*}{sam_ce_query_coverage.csv}
+    0.7, 33.92
+    0.75, 33.58
+    0.8, 33.32
+    0.85, 33.17
+    0.9, 32.39
+    0.95, 28.83
+    1, 28.68
+\end{filecontents*}
+\begin{filecontents*}{sam_mean_query_coverage.csv}
+    0.7, 12.32
+    0.75, 12.46
+    0.8, 9.32
+    0.85, 6.34
+    0.9, 4.80
+    0.95, 1.99
+    1, 1.97
+\end{filecontents*}
+\begin{figure}[ht]
+\begin{minipage}[t]{0.24\textwidth}
+\centering
+\begin{tikzpicture}
+    \begin{axis}[
+    xlabel= Coverage ratio,
+    ylabel style={align=center},
+    ylabel = Cross Entropy\\(Bits),
+    %  ylabel near ticks,
+    xlabel style={align=center},
+    width=4.2cm,
+    height=3cm,
+    xmin = 0.7,
+    xmax = 1,
+    grid = both],
+  \addplot[line width=0.5pt,solid,color=black,mark=*, mark size=1.5pt] table[col sep=comma]{sam_ce_query_coverage.csv};
+    \end{axis}
+\end{tikzpicture}
+\end{minipage}
+\begin{minipage}[t]{0.23\textwidth}
+\centering
+\begin{tikzpicture}
+    \begin{axis}[
+    xlabel= Coverage ratio,
+    ylabel= Mean Q-Error,
+    ylabel near ticks,,
+     xlabel style={align=center},
+    width=4.2cm,
+    height=3cm,
+    xmin = 0.7,
+    xmax = 1,
+    grid = both],
+  \addplot[line width=0.5pt,solid,color=black,mark=*, mark size=1.5pt] table[col sep=comma]{sam_mean_query_coverage.csv};
+    \end{axis}
+\end{tikzpicture}
+\vspace{-0.7em}
+\end{minipage}
+\vspace{-2em}
+\caption{Performance of database recovery with varying workload coverage ratio on Census.}
+\label{fig:coverage_query}
+\end{figure}
