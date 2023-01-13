@@ -40,7 +40,7 @@ create table cast_info (movie_id int, role_id int, person_id int);
 copy cast_info from '[path_to_repo]/sam_multi/generated_database/imdb/cast_info_100.csv' delimiter ',' header csv;
 ```
 
-Run the 400 training queries ([`./queries/mscn_400.sql`](./queries/mscn_400.sql)) on the generated database and get the result Q-error:
+Modify the Database configurations in [`./config.ini`](./config.ini) and run the 400 training queries ([`./queries/mscn_400.sql`](./queries/mscn_400.sql)) on the generated database and get the result Q-error:
 ```
 python query_execute.py --queries ./queries/mscn_400.sql --cards ./queries/mscn_400_card.csv
 ```
