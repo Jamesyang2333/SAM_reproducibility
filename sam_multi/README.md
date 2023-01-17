@@ -11,7 +11,7 @@ bash scripts/download_imdb.sh
 
 [`./models/uaeq-mscn-400.pt`](./models/uaeq-mscn.pt): Trained from the first 400 queries in the MSCN workload ([`./queries/mscn_400.csv`](./queries/mscn_400.csv)).
 
-### Reproduce result of Table 3 
+### Reproduce result of Table 4 & 9
 
 To generate database from trained models using SAM, use the following commands.
 ```
@@ -50,10 +50,10 @@ python query_execute.py --queries ./queries/mscn_400.sql --cards ./queries/mscn_
 
 All configuration of SAM, including model training and database generation, can be set in [`experiments.py`](./experiments.py). To configure the generation process, locate the configure for [`'data-generation-job-light-MSCN-worklod'`], where you can set the autoregressive model to load, the number of iteration to run, as well as the schema of the generated database.
 
-### Reproduce result of Table 4
+### Reproduce result of Table 3
 Set the following in [`experiments.py`](./experiments.py) and repeat the steps.
 ```
-'checkpoint_to_load': 'models/uaeq-mscn.pt'
+'checkpoint_to_load': 'models/uaeq-mscn.pt',
 'total_iterations': 1000
 ```
 
@@ -77,3 +77,23 @@ To test the model on sub-queries of JOB-light
 ```
 python run_uae.py --run uae-job-light-ranges-reload
 ```
+
+
+### Reproduce result of Figure 5
+To record the processing time of SAM on IMDB for different queries sizes, first modify the `'train_queries'` parameter in [`experiments.py`](./experiments.py) under `'job-light-ranges-mscn-workload'`, and then train the model from MSCN queries with the specified size.
+```
+python run_uae.py --run job-light-ranges-mscn-workload
+``` 
+
+### Reproduce result of Figure 6
+Set the following in [`experiments.py`](./experiments.py) under `'data-generation-job-light-mscn-worklod'`
+```
+'checkpoint_to_load': 'models/uaeq-mscn.pt',
+'total_iterations': 2000,
+'save_frequency': 200
+```
+Run the command to generate database from mscn workload for 2000 iterations, the results will be printed every 200 iterations.
+```
+python run_dbgen.py --run data-generation-job-light-mscn-worklod
+```
+
