@@ -26,8 +26,6 @@ The generated relations are saved at `./generated_data_tables`.
 
 **Reproduce result of Table 1** : Run the full training queries on the generated database.
 ```
-
-
 python query_execute_single.py --dataset census --data-file ./generated_data_tables/census.csv --query-file ./queries/census_train.txt
 python query_execute_single.py --dataset dmv --data-file ./generated_data_tables/dmv.csv --query-file ./queries/dmv_train.txt
 ```
