@@ -70,8 +70,8 @@ python eval_model.py --dataset dmv --residual --layers=2 --fc-hiddens=128 --dire
 python train_uae.py --num-gpus=1 --dataset=census --epochs=50 --constant-lr=5e-4 --run-uaeq  --residual --layers=2 --fc-hiddens=128 --direct-io --column-masking --workload-size [specified-size] --q-bs 200
 ```
 
-**Reproduce result of Figure 8** To test the effect of coverage ratio on SAM, we first generate query workloads with different coverage ratios using [`query_filter.py`](query_filter.py). We set the coverage ratio by modifying the --cover-ratio argument.
+**Reproduce result of Figure 8** To test the effect of coverage ratio on SAM, we first generate query workloads with different coverage ratios using [`query_filter.py`](query_filter.py). We set the coverage ratio by modifying the `--coverage-ratio` argument.
 ```
-python query_filter.py --cover-ratio [specified-coverage-ratio]
+python query_filter.py --coverage-ratio [specified-coverage-ratio]
 ```
 The query workloads generated can be found under the `queries` folder. Train SAM from the generated query workloads and repeat the steps above to get the experiments results with different coverage ratios.
